@@ -7,7 +7,7 @@ Set iframe height to fit iframe content - works cross-domain
 Demo
 ----
 
-[http://demo.jonasfischer.net/Faibl/setIframeHeight/](http://demo.jonasfischer.net/Faibl/setIframeHeight/)
+[https://demo.jonasfischer.net/Faibl/setIframeHeight/](https://demo.jonasfischer.net/Faibl/setIframeHeight/)
 
 
 Usage
