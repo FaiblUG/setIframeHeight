@@ -7,7 +7,7 @@ Set iframe height to fit iframe content - works cross-domain
 Demo
 ----
 
-[demo.html](http://htmlpreview.github.com/?https://github.com/FaiblUG/setIframeHeight/blob/master/demo.html)
+[http://demo.jonasfischer.net/Faibl/setIframeHeight/](http://demo.jonasfischer.net/Faibl/setIframeHeight/)
 
 
 Usage
@@ -17,13 +17,13 @@ Usage
 
 #### 1. Include iframe
     
-    <iframe src="..."></iframe>
+    <iframe scrolling="no" src="..."></iframe>
 
 #### 2. Include jQuery
     
 You can skip this step if jQuery is already included in your page. 
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     
 #### 3. Include Script
     
@@ -42,7 +42,7 @@ You can skip this step if jQuery is already included in your page.
 
 If you want you parent url to be updated whenever the iframe url changes, you need to supply a deep link pattern on the iframe tag:
 
-    <iframe src="..." data-iframeAutoHeight-deepLinkPattern="http://www.your-host.com/your-path/?iframe_target=%deepLinkIframeSrc%"></iframe>
+    <iframe src="..." data-iframeAutoHeight-deepLinkPattern="//www.your-host.com/your-path/?iframe_target=%deepLinkIframeSrc%"></iframe>
     
 When rendering your page, you need to validate the value of the iframe_target GET Parameter and if it is valid, you can put the value into the iframe src attribute.
 

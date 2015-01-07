@@ -24,7 +24,7 @@ var setIframeHeight = (function($, document, window) {
     $('iframe').each(function(idx, iframe) {
 
       var $iframe = $(iframe);
-      var iframeSrc = $iframe.attr('data-iframeAutoHeight-currentSrc') || $iframe.attr('src');
+      var iframeSrc = $iframe.attr('data-iframeAutoHeight-currentSrc') || iframe.src;
       if (iframeSrc) {
         if (iframeSrc.indexOf('/') === 0) {
           iframeSrc = getHostForUrl(document.location.href) + iframeSrc;
