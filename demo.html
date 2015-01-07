@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.lcnRangeSelect Demo</title>
+  <link rel="stylesheet" href="dist/jquery.lcnRangeSelect.css">
+</head>
+<body>
+
+<h1>jQuery.lcnRangeSelect Demo</h1>
+
+<h2>Without predefined value</h2>
+<input type="text" id="test-1" name="test-1" class="range-select" /></div>
+
+<h2>With predefined value and additional options</h2>
+<input type="text" id="test-2" name="test-2" class="range-select" value="90;180" data-min="30" data-max="300" data-unit="€"/></div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="dist/jquery.lcnRangeSelect.js"></script>
+<script>jQuery('input.range-select').lcnRangeSelect();</script>
+</body>
+</html>

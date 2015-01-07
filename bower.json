@@ -1,0 +1,11 @@
+{
+  "name": "set-iframe-height",
+  "version": "1.0.0",
+  "main": "dist/setIframeHeight.js",
+  "ignore": [
+    ".gitignore",
+    "package.json",
+    "gulpfile.js",
+    "bower.json"
+  ]
+}
