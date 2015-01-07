@@ -1,6 +1,6 @@
 {
   "name": "set-iframe-height",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Set iframe height to fit iframe content - works cross-domain",
   "main": "dist/setIframeHeightParent.js",
   "scripts": {

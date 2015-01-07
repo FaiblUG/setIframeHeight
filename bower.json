@@ -1,6 +1,6 @@
 {
   "name": "set-iframe-height",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "main": "dist/setIframeHeight.js",
   "ignore": [
     ".gitignore",
