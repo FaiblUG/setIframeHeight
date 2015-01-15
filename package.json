@@ -3,9 +3,6 @@
   "version": "1.0.3",
   "description": "Set iframe height to fit iframe content - works cross-domain",
   "main": "dist/setIframeHeightParent.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "devDependencies": {
     "gulp": "~3.8",
     "gulp-clean": "~0.3",
