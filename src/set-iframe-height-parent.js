@@ -1,5 +1,32 @@
-var setIframeHeight = (function($, document, window) {
+(function (root, factory) {
+  var $ = root.jQuery;
 
+  if (typeof define === 'function' && define.amd) {
+    // AMD
+    if ($) {
+      define([], factory.bind(null, $));
+    }
+    else {
+      define(['jquery'], factory);
+    }
+  } else if (typeof exports === 'object') {
+    // Node, CommonJS-like
+    if ($) {
+      module.exports = factory($);
+    }
+    else {
+      module.exports = factory(require('jquery'));
+    }
+  } else {
+    // Browser globals (root is window)
+    if ($) {
+      root.setIframeHeight = factory($);
+    }
+    else {
+      throw 'Missing required jQuery dependency';
+    }
+  }
+}(this, function ($) {
   /************** EVENT BINDINGS **************/
 
   $(window).
@@ -82,5 +109,4 @@ var setIframeHeight = (function($, document, window) {
   }
 
   return that;
-
-})(jQuery, document, window);
+}));
