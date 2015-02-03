@@ -1,16 +1,17 @@
 {
   "name": "set-iframe-height",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "cross-domain responsive iframes: automatically set iframe height to fit iframe content",
   "keywords": [
     "iframe",
     "responsive"
   ],
-  "main": "dist/setIframeHeightParent.js",
+  "main": "dist/set-iframe-height-parent-min.js",
   "devDependencies": {
     "gulp": "~3.8",
     "gulp-clean": "~0.3",
-    "gulp-uglify": "~1.0"
+    "gulp-uglify": "~1.0",
+    "gulp-rename": "~1.2"
   },
   "repository": {
     "type": "git",

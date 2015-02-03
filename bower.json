@@ -1,8 +1,8 @@
 {
   "name": "set-iframe-height",
   "description": "cross-domain responsive iframes: automatically set iframe height to fit iframe content",
-  "version": "1.0.3",
-  "main": "dist/setIframeHeight.js",
+  "version": "1.0.4",
+  "main": "dist/set-iframe-height-parent-min.js",
   "ignore": [
     ".gitignore",
     "package.json",

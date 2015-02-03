@@ -7,9 +7,14 @@ function handleError(err) {
 
 gulp.task('scripts', function() {
   var uglify = require('gulp-uglify');
+  var rename = require('gulp-rename');
   gulp
     .src('src/**/*.js')
+    .pipe(gulp.dest('dist'))
     .pipe(uglify())
+    .pipe(rename(function (path) {
+      path.basename += "-min";
+    }))
     .pipe(gulp.dest('dist'))
   ;
 });

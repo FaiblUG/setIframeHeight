@@ -27,14 +27,14 @@ You can skip this step if jQuery is already included in your page.
     
 #### 3. Include Script
     
-    <script src="dist/setIframeHeightParent.js" async></script>
+    <script src="dist/set-iframe-height-parent-min.js" async></script>
 
 ### Iframe Page
 
 #### 1. Include Script
     
-    <script src="dist/setIframeHeightChild.js" async></script>
-    
+    <script src="dist/set-iframe-height-child-min.js" async></script>
+
     
 ### Advanced Options
 
