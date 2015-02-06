@@ -25,6 +25,10 @@ You can skip this step if jQuery is already included in your page.
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     
+Or, if you need to support IE8 Browsers:
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
 #### 3. Include Script
     
     <script src="dist/set-iframe-height-parent-min.js" async></script>
