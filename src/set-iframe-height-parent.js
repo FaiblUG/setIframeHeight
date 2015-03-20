@@ -36,9 +36,24 @@
 
   /************** PUBLIC INTERFACE **************/
 
+  var lastHeight;
+
   var that = {
     setHeight: function(iframeSrc, height, iframeReferrer) {
-      $(window).trigger('setIframeHeight', [{ iframeSrc: iframeSrc, height: height, iframeReferrer: iframeReferrer }]);
+      height = parseInt(height, 10);
+      var data = [{ iframeSrc: iframeSrc, height: height, lastHeight: lastHeight, iframeReferrer: iframeReferrer }];
+      var $window = $(window);
+      $window.trigger('setIframeHeight', data);
+      if (lastHeight === undefined) {
+        $window.trigger('setIframeHeight:determined', data);
+      }
+      else if (lastHeight > height) {
+        $window.trigger('setIframeHeight:shrinked', data);
+      }
+      else if (lastHeight < height) {
+        $(window).trigger('setIframeHeight:enlarged', data);
+      }
+      lastHeight = height;
     }
   };
 

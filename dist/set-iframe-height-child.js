@@ -1,11 +1,18 @@
 (function() {
-  if (!window.parent) {
+  if (!window.parent || parent === self) {
     return;
   }
 
   function postCurrentHeight() {
-    var currentHeight = document.documentElement.scrollHeight;
-    postHeight(currentHeight);
+    var D = document;
+    var height = Math.min(
+      Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+      Math.max(
+        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+      )
+    );
+    postHeight(height);
   }
 
   function isSameHostAsParent() {
@@ -25,6 +32,6 @@
     }
   }
 
-  setInterval(postCurrentHeight, 500);
-  postHeight(0);
+  setInterval(postCurrentHeight, 350);
+  postCurrentHeight();
 })();
