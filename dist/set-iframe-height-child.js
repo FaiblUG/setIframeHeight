@@ -4,15 +4,25 @@
   }
 
   function postCurrentHeight() {
+    postHeight(getDocumentHeight());
+  }
+
+  function getDocumentHeight() {
     var D = document;
-    var height = Math.min(
+
+    var matches = navigator.userAgent.match(/MSIE (\d)/);
+    if (matches && parseInt(matches[1], 10) <=10) {
+
+      return Math.max(D.body.scrollHeight, D.documentElement.scrollHeight);
+    }
+
+    return Math.min(
       Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
       Math.max(
         Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
         Math.max(D.body.clientHeight, D.documentElement.clientHeight)
       )
     );
-    postHeight(height);
   }
 
   function isSameHostAsParent() {
