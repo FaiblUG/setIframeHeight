@@ -36,27 +36,16 @@
 
   /************** PUBLIC INTERFACE **************/
 
-  var lastHeight;
-
   var that = {
     setHeight: function(iframeSrc, height, iframeReferrer) {
       height = parseInt(height, 10);
-      var data = [{ iframeSrc: iframeSrc, height: height, lastHeight: lastHeight, iframeReferrer: iframeReferrer }];
-      var $window = $(window);
-      $window.trigger('setIframeHeight', data);
-      if (lastHeight === undefined) {
-        $window.trigger('setIframeHeight:determined', data);
-      }
-      else if (lastHeight > height) {
-        $window.trigger('setIframeHeight:shrinked', data);
-      }
-      else if (lastHeight < height) {
-        $(window).trigger('setIframeHeight:enlarged', data);
-      }
-      lastHeight = height;
+      $(window).trigger('setIframeHeight', [{ iframeSrc: iframeSrc, height: height, iframeReferrer: iframeReferrer }]);
     }
   };
 
+  var lastHeights = {};
+
+  var _idCounter = 0;
 
   /************** PRIVATE VARS AND FUNCTIONS **************/
 
@@ -74,13 +63,18 @@
         if (iframeSrc === src) {
           bestMatchingIframe = iframe;
         }
-        else if (getHostForUrl(iframeSrc) === getHostForUrl(src)) {
-          bestMatchingIframe = iframe;
-        }
+      }
+
+      if (!$iframe.data('setIframeHeight_id')) {
+        $iframe.data('setIframeHeight_id', getNextId());
       }
     });
 
     return bestMatchingIframe;
+  }
+
+  function getNextId() {
+    return ++_idCounter+'';
   }
 
   function getHostForUrl(url) {
@@ -96,8 +90,25 @@
     }
     if (iframe) {
       var $iframe = $(iframe);
+      var $window = $(window);
+
       $iframe.height(data.height);
       $iframe.attr('data-iframeAutoHeight-currentSrc', data.iframeSrc);
+
+      iframeId = $iframe.data('setIframeHeight_id');
+      var lastHeight = lastHeights[iframeId];
+      var height = data.height;
+      if (lastHeight === undefined) {
+        $window.trigger('setIframeHeight:determined', data);
+      }
+      else if (lastHeight > height) {
+        $window.trigger('setIframeHeight:shrinked', data);
+      }
+      else if (lastHeight < height) {
+        $(window).trigger('setIframeHeight:enlarged', data);
+      }
+
+      lastHeights[iframeId] = height;
 
       if (window.history.replaceState && $iframe.attr('data-iframeAutoHeight-deepLinkPattern')) {
         var parentUrl = $iframe.attr('data-iframeAutoHeight-deepLinkPattern').replace(/%deepLinkIframeSrc%/, encodeURIComponent(data.iframeSrc));
