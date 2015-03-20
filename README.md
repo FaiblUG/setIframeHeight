@@ -51,3 +51,30 @@ If you want you parent url to be updated whenever the iframe url changes, you ne
 When rendering your page, you need to validate the value of the iframe_target GET Parameter and if it is valid, you can put the value into the iframe src attribute.
 
 This allows the user to reload, bookmark or share deep-linked iframe content within your parent frame.
+
+If you need to take action in your parent page whenever the deep link changes, e.g. to dynamically update social share buttons, you can listen to the window.setIframeHeight:deepLink:changed event:
+
+    jQuery(window).on('setIframeHeight:deepLink:changed', function(e, data) {
+        console.lg(data);
+        // Object {childUrl: "http://..", parentUrl: "http://..."}
+    });
+
+#### Events
+
+The following events are triggered on the window object of the parent page:
+
+setIframeHeight: is periodically triggered (fires very often)
+setIframeHeight:enlarged: is triggered whenever the iframe got enlarged
+setIframeHeight:shrinked: is triggered whenever the iframe got shrinked
+
+Example usage:
+
+    jQuery(window)
+        .on('setIframeHeight:shrinked', function (e, data) {
+            console.log('iframe shrinked', data);
+            window.scroll(0,0);
+        })
+        .on('setIframeHeight:enlarged', function (e, data) {
+            console.log('iframe enlarged', data);
+        })
+    ;
