@@ -1,10 +1,5 @@
 var gulp = require('gulp');
 
-function handleError(err) {
-  console.error(err.toString());
-  this.emit('end');
-}
-
 gulp.task('scripts', function() {
   var uglify = require('gulp-uglify');
   var rename = require('gulp-rename');
