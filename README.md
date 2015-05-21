@@ -55,7 +55,7 @@ This allows the user to reload, bookmark or share deep-linked iframe content wit
 If you need to take action in your parent page whenever the deep link changes, e.g. to dynamically update social share buttons, you can listen to the window.setIframeHeight:deepLink:changed event:
 
     jQuery(window).on('setIframeHeight:deepLink:changed', function(e, data) {
-        console.lg(data);
+        console.log(data);
         // Object {childUrl: "http://..", parentUrl: "http://..."}
     });
 
