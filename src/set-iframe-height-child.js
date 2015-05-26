@@ -3,6 +3,8 @@
     return;
   }
 
+  $(window).bind('message', onMessage);
+
   function postCurrentHeight() {
     postHeight(getDocumentHeight());
   }
@@ -25,20 +27,20 @@
     );
   }
 
-  function isSameHostAsParent() {
-    return getHostForUrl(document.location.href) === getHostForUrl(parent.location.href);
-  }
-
-  function getHostForUrl(url) {
-    return url.match(/https?:\/\/.[^/]+/)[0];
-  }
-
   function postHeight(height) {
     if (parent.postMessage) {
       parent.postMessage('setIframeHeight::{ "iframeSrc": "'+document.location.href+'", "iframeReferrer": "'+document.referrer+'", "height":'+height+' }', '*');
     }
-    else if (isSameHostAsParent() && parent.setIframeHeight) {
-      parent.setIframeHeight.setHeight(document.location.href, height, document.referrer);
+  }
+
+  function onMessage(e) {
+    var data = e.originalEvent.data;
+    if (data.indexOf('::')) {
+      var data = data.split('::');
+      if (data.length === 2 && data[0] === 'setIframeHeight:deepLink:changed') {
+        var params = $.parseJSON(data[1]);
+        $(window).trigger('setIframeHeight:deepLink:changed', params);
+      }
     }
   }
 

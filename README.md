@@ -52,12 +52,14 @@ When rendering your page, you need to validate the value of the iframe_target GE
 
 This allows the user to reload, bookmark or share deep-linked iframe content within your parent frame.
 
-If you need to take action in your parent page whenever the deep link changes, e.g. to dynamically update social share buttons, you can listen to the window.setIframeHeight:deepLink:changed event:
+If you need to take action whenever the deep link changes, e.g. to dynamically update social share buttons, you can listen to the window.setIframeHeight:deepLink:changed event:
 
     jQuery(window).on('setIframeHeight:deepLink:changed', function(e, data) {
         console.log(data);
         // Object {childUrl: "http://..", parentUrl: "http://..."}
     });
+
+This event is fired in the parent page and in the iframe itself.
 
 #### Events
 

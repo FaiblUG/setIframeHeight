@@ -82,6 +82,10 @@
     return matches[0];
   }
 
+  function normalizeUrl(url) {
+    return url.replace(/^https?:\/\//, '//');
+  }
+
   function onSetIframeHeight(e, data) {
     var iframe = findIframeBySrc(data.iframeSrc);
 
@@ -93,7 +97,10 @@
       var $window = $(window);
 
       $iframe.height(data.height);
-      $iframe.attr('data-iframeAutoHeight-currentSrc', data.iframeSrc);
+
+      if (normalizeUrl(iframe.src) !== normalizeUrl(data.iframeSrc)) {
+        $iframe.attr('data-iframeAutoHeight-currentSrc', data.iframeSrc);
+      }
 
       iframeId = $iframe.data('setIframeHeight_id');
       var lastHeight = lastHeights[iframeId];
@@ -110,14 +117,18 @@
 
       lastHeights[iframeId] = height;
 
-      if (window.history.replaceState && $iframe.attr('data-iframeAutoHeight-deepLinkPattern')) {
+      if (window.history.replaceState && $iframe.attr('data-iframeAutoHeight-deepLinkPattern') && $iframe.attr('data-iframeAutoHeight-currentSrc')) {
         var parentUrl = $iframe.attr('data-iframeAutoHeight-deepLinkPattern').replace(/%deepLinkIframeSrc%/, encodeURIComponent(data.iframeSrc));
-        if (document.location.href !== parentUrl) {
+        if (normalizeUrl(document.location.href) !== normalizeUrl(parentUrl)) {
           window.history.replaceState({}, '', parentUrl);
           $(window).trigger('setIframeHeight:deepLink:changed', {
             childUrl: data.iframeSrc,
             parentUrl: parentUrl
           });
+
+          if (iframe.contentWindow && iframe.contentWindow.postMessage) {
+            iframe.contentWindow.postMessage('setIframeHeight:deepLink:changed::{ "parentUrl": "'+parentUrl+'", "childUrl": "'+data.iframeUrl+'"}', '*');
+          }
         }
       }
     }
