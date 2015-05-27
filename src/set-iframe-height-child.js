@@ -3,6 +3,8 @@
     return;
   }
 
+  iframeId = null;
+
   $(window).bind('message', onMessage);
 
   function postCurrentHeight() {
@@ -29,7 +31,7 @@
 
   function postHeight(height) {
     if (parent.postMessage) {
-      parent.postMessage('setIframeHeight::{ "iframeSrc": "'+document.location.href+'", "iframeReferrer": "'+document.referrer+'", "height":'+height+' }', '*');
+      parent.postMessage('setIframeHeight::{ "iframeSrc": "'+document.location.href+'", "iframeId": "'+iframeId+'", "iframeReferrer": "'+document.referrer+'", "height":'+height+' }', '*');
     }
   }
 
@@ -37,9 +39,23 @@
     var data = e.originalEvent.data;
     if (data.indexOf('::')) {
       var data = data.split('::');
-      if (data.length === 2 && data[0] === 'setIframeHeight:deepLink:changed') {
-        var params = $.parseJSON(data[1]);
-        $(window).trigger('setIframeHeight:deepLink:changed', params);
+      if (data.length === 2) {
+        var params;
+        try {
+          params = $.parseJSON(data[1])
+        } catch (err) { };
+
+        if (params && params !== data[1]) {
+          var eventName = data[0];
+          switch (eventName) {
+            case 'setIframeHeight:setIframeId':
+              iframeId = params.iframeId;
+              break;
+            case 'setIframeHeight:deepLink:changed':
+              $(window).trigger('setIframeHeight:deepLink:changed', params);
+              break;
+          }
+        }
       }
     }
   }

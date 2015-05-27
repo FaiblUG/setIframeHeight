@@ -37,9 +37,9 @@
   /************** PUBLIC INTERFACE **************/
 
   var that = {
-    setHeight: function(iframeSrc, height, iframeReferrer) {
-      height = parseInt(height, 10);
-      $(window).trigger('setIframeHeight', [{ iframeSrc: iframeSrc, height: height, iframeReferrer: iframeReferrer }]);
+    setHeight: function(params) {
+      params.height = parseInt(params.height, 10);
+      $(window).trigger('setIframeHeight', [params]);
     }
   };
 
@@ -61,12 +61,31 @@
           iframeSrc = getHostForUrl(document.location.href) + iframeSrc;
         }
         if (iframeSrc === src) {
+
+          if (!$iframe.data('setIframeHeight_id')) {
+            $iframe.data('setIframeHeight_id', getNextId());
+          }
+
           bestMatchingIframe = iframe;
+
+          return false; //break jQuery.each loop
         }
       }
+    });
 
-      if (!$iframe.data('setIframeHeight_id')) {
-        $iframe.data('setIframeHeight_id', getNextId());
+    return bestMatchingIframe;
+  }
+
+  function findIframeById(iframeId) {
+    var bestMatchingIframe = null;
+
+    $('iframe').each(function(idx, iframe) {
+      var $iframe = $(iframe);
+
+      if ($iframe.data('setIframeHeight_id') === iframeId) {
+        bestMatchingIframe = iframe;
+
+        return false; //break jQuery.each loop
       }
     });
 
@@ -87,20 +106,29 @@
   }
 
   function onSetIframeHeight(e, data) {
-    var iframe = findIframeBySrc(data.iframeSrc);
+    var iframe;
+
+    if (data.iframeId) {
+      iframe = findIframeById(data.iframeId);
+    }
+
+    if (!iframe) {
+      iframe = findIframeBySrc(data.iframeSrc);
+    }
 
     if (!iframe && data.iframeReferrer) {
       iframe = findIframeBySrc(data.iframeReferrer);
     }
+
     if (iframe) {
       var $iframe = $(iframe);
       var $window = $(window);
 
       $iframe.height(data.height);
 
-      if (normalizeUrl(iframe.src) !== normalizeUrl(data.iframeSrc)) {
-        $iframe.attr('data-iframeAutoHeight-currentSrc', data.iframeSrc);
-      }
+      var urlHasChanged = normalizeUrl($iframe.attr('data-iframeAutoHeight-currentSrc') || iframe.src) !== normalizeUrl(data.iframeSrc);
+
+      $iframe.attr('data-iframeAutoHeight-currentSrc', data.iframeSrc);
 
       iframeId = $iframe.data('setIframeHeight_id');
       var lastHeight = lastHeights[iframeId];
@@ -117,7 +145,11 @@
 
       lastHeights[iframeId] = height;
 
-      if (window.history.replaceState && $iframe.attr('data-iframeAutoHeight-deepLinkPattern') && $iframe.attr('data-iframeAutoHeight-currentSrc')) {
+      if (iframeId !== data.iframeId && iframe.contentWindow && iframe.contentWindow.postMessage) {
+        iframe.contentWindow.postMessage('setIframeHeight:setIframeId::{ "iframeId": "'+iframeId+'"}', '*');
+      }
+
+      if (window.history.replaceState && $iframe.attr('data-iframeAutoHeight-deepLinkPattern') && urlHasChanged) {
         var parentUrl = $iframe.attr('data-iframeAutoHeight-deepLinkPattern').replace(/%deepLinkIframeSrc%/, encodeURIComponent(data.iframeSrc));
         if (normalizeUrl(document.location.href) !== normalizeUrl(parentUrl)) {
           window.history.replaceState({}, '', parentUrl);
@@ -140,7 +172,7 @@
       var data = data.split('::');
       if (data.length === 2 && data[0] === 'setIframeHeight') {
         var params = $.parseJSON(data[1]);
-        that.setHeight(params.iframeSrc, params.height, params.iframeReferrer);
+        that.setHeight(params);
       }
     }
   }
