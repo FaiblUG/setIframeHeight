@@ -1,9 +1,11 @@
 (function() {
+  'use strict';
+
   if (!window.parent || parent === self) {
     return;
   }
 
-  iframeId = null;
+  var iframeId = parseInt(Math.random() * 99999999);
 
   $(window).bind('message', onMessage);
 
@@ -48,9 +50,6 @@
         if (params && params !== data[1]) {
           var eventName = data[0];
           switch (eventName) {
-            case 'setIframeHeight:setIframeId':
-              iframeId = params.iframeId;
-              break;
             case 'setIframeHeight:deepLink:changed':
               $(window).trigger('setIframeHeight:deepLink:changed', params);
               break;
