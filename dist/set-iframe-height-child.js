@@ -1,4 +1,4 @@
-(function() {
+(function($) {
   'use strict';
 
   if (!window.parent || parent === self) {
@@ -61,4 +61,4 @@
 
   setInterval(postCurrentHeight, 350);
   postCurrentHeight();
-})();
+})(jQuery);

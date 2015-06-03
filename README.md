@@ -23,11 +23,7 @@ Usage
     
 You can skip this step if jQuery is already included in your page. 
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    
-Or, if you need to support IE8 Browsers:
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     
 #### 3. Include Script
     
@@ -39,6 +35,11 @@ Or, if you need to support IE8 Browsers:
     
     <script src="dist/set-iframe-height-child-min.js" async></script>
 
+#### 2. Include jQuery
+    
+You can skip this step if jQuery is already included in the iframe page. 
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     
 ### Advanced Options
 
