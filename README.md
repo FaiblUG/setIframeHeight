@@ -47,7 +47,7 @@ You can skip this step if jQuery is already included in the iframe page.
 
 If you want you parent url to be updated whenever the iframe url changes, you need to supply a deep link pattern on the iframe tag:
 
-    <iframe src="..." data-iframeAutoHeight-deepLinkPattern="//www.your-host.com/your-path/?iframe_target=%deepLinkIframeSrc%"></iframe>
+    <iframe src="..." data-iframeAutoHeight-deepLinkPattern="/path/to/parent-page/?iframe_target=%deepLinkIframeSrc%"></iframe>
     
 When rendering your page, you need to validate the value of the iframe_target GET Parameter and if it is valid, you can put the value into the iframe src attribute.
 

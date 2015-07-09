@@ -1,12 +1,12 @@
 {
   "name": "set-iframe-height",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "cross-domain responsive iframes: automatically set iframe height to fit iframe content",
   "keywords": [
     "iframe",
     "responsive"
   ],
-  "main": "dist/set-iframe-height-parent-min.js",
+  "main": "src/set-iframe-height-parent.js",
   "devDependencies": {
     "gulp": "~3.8",
     "gulp-clean": "~0.3",
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/FaiblUG/setIframeHeight.git"
   },
-  "author": "Jonas Fischer-Maeck",
+  "author": "Jonas Fischer-Maeck <info@jonasfischer.net> (https://www.jonasfischer.net)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FaiblUG/setIframeHeight/issues"
