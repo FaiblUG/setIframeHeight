@@ -5,7 +5,11 @@
     return;
   }
 
-  var iframeId = (self.frameElement && self.frameElement.getAttribute('data-set-iframe-height_id')) || parseInt(Math.random() * 99999999);
+  var iframeId = parseInt(Math.random() * 99999999);
+
+  try {
+    iframeId = (self.frameElement && self.frameElement.getAttribute('data-set-iframe-height_id')) || iframeId;
+  } catch (e) {}
 
   $(window).bind('message', onMessage);
 
