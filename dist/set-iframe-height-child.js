@@ -7,6 +7,10 @@
 
   var iframeId = parseInt(Math.random() * 99999999);
 
+  try {
+    iframeId = (self.frameElement && self.frameElement.getAttribute('data-set-iframe-height_id')) || iframeId;
+  } catch (e) {}
+
   $(window).bind('message', onMessage);
 
   function postCurrentHeight() {
@@ -34,6 +38,12 @@
   function postHeight(height) {
     if (parent.postMessage) {
       parent.postMessage('setIframeHeight::{ "iframeSrc": "'+document.location.href+'", "iframeId": "'+iframeId+'", "iframeReferrer": "'+document.referrer+'", "height":'+height+' }', '*');
+      // amp-iframe resize request
+      parent.postMessage({
+        sentinel: 'amp',
+        type: 'embed-size',
+        height: height
+      }, '*');
     }
   }
 
