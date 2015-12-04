@@ -7,7 +7,7 @@ Set iframe height to fit iframe content - works cross-domain
 Demo
 ----
 
-[https://demo.jonasfischer.net/Faibl/setIframeHeight/](https://demo.jonasfischer.net/Faibl/setIframeHeight/)
+[https://rawgit.com/FaiblUG/setIframeHeight/master/demo/index.html](https://rawgit.com/FaiblUG/setIframeHeight/master/demo/index.html)
 
 
 Usage
@@ -45,6 +45,8 @@ You can skip this step if jQuery is already included in the iframe page.
 
 #### Deep Links
 
+[Demo](https://demo.jonasfischer.net/Faibl/setIframeHeight/)
+
 If you want you parent url to be updated whenever the iframe url changes, you need to supply a deep link pattern on the iframe tag:
 
     <iframe src="..." data-iframeAutoHeight-deepLinkPattern="/path/to/parent-page/?iframe_target=%deepLinkIframeSrc%"></iframe>
@@ -81,3 +83,12 @@ Example usage:
             console.log('iframe enlarged', data);
         })
     ;
+
+
+#### Support for amp-iframe (Accelerated Mobile Pages Project)
+
+[Demo](https://rawgit.com/FaiblUG/setIframeHeight/master/demo/amp-iframe-demo.html)
+
+For implementation details, check the [demo sourcecode](https://github.com/FaiblUG/setIframeHeight/blob/master/demo/amp-iframe-demo.html) and the [amp-iframe documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-iframe/amp-iframe.md)
+
+Thanks to [mthiele](https://github.com/mthieleguj) for this contribution.

@@ -38,7 +38,8 @@
   function postHeight(height) {
     if (parent.postMessage) {
       parent.postMessage('setIframeHeight::{ "iframeSrc": "'+document.location.href+'", "iframeId": "'+iframeId+'", "iframeReferrer": "'+document.referrer+'", "height":'+height+' }', '*');
-      // amp-iframe resize request
+
+      // amp-iframe resize request (https://github.com/ampproject/amphtml/blob/master/extensions/amp-iframe/amp-iframe.md#-amp-iframe)
       parent.postMessage({
         sentinel: 'amp',
         type: 'embed-size',
