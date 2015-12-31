@@ -161,7 +161,7 @@
 
   function onMessage(e) {
     var data = e.originalEvent.data;
-    if (data.indexOf('::')) {
+    if (typeof data === 'string' && data.indexOf('::')) {
       var data = data.split('::');
       if (data.length === 2 && data[0] === 'setIframeHeight') {
         var params = $.parseJSON(data[1]);
