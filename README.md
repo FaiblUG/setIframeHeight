@@ -1,13 +1,13 @@
 setIframeHeight
 ==============================
 
-Set iframe height to fit iframe content - works cross-domain
+Automatically adjust iframe height to fit the lenght of the displayed page - works cross-domain
 
 
 Demo
 ----
 
-[https://rawgit.com/FaiblUG/setIframeHeight/master/demo/index.html](https://rawgit.com/FaiblUG/setIframeHeight/master/demo/index.html)
+[http://faiblug.github.io/setIframeHeight/](http://faiblug.github.io/setIframeHeight/)
 
 
 Usage
@@ -44,8 +44,6 @@ You can skip this step if jQuery is already included in the iframe page.
 ### Advanced Options
 
 #### Deep Links
-
-[Demo](https://demo.jonasfischer.net/Faibl/setIframeHeight/)
 
 If you want you parent url to be updated whenever the iframe url changes, you need to supply a deep link pattern on the iframe tag:
 
