@@ -1,4 +1,4 @@
-(function($) {
+(function() {
   'use strict';
 
   if (!window.parent || parent === self) {
@@ -11,7 +11,7 @@
     iframeId = (self.frameElement && self.frameElement.getAttribute('data-set-iframe-height_id')) || iframeId;
   } catch (e) {}
 
-  $(window).bind('message', onMessage);
+  window.addEventListener('message', onMessage);
 
   function postCurrentHeight() {
     postHeight(getDocumentHeight());
@@ -49,20 +49,20 @@
   }
 
   function onMessage(e) {
-    var data = e.originalEvent.data;
+    var data = e.data;
     if (typeof data === 'string' && data.indexOf('::')) {
       var data = data.split('::');
       if (data.length === 2) {
         var params;
         try {
-          params = $.parseJSON(data[1])
+          params = JSON.parse(data[1])
         } catch (err) { };
 
         if (params && params !== data[1]) {
           var eventName = data[0];
           switch (eventName) {
             case 'setIframeHeight:deepLink:changed':
-              $(window).trigger('setIframeHeight:deepLink:changed', params);
+              triggerCustomEvent(window, 'setIframeHeight:deepLink:changed', params);
               break;
           }
         }
@@ -70,6 +70,12 @@
     }
   }
 
+  function triggerCustomEvent(element, eventName, eventData) {
+    const e = document.createEvent('CustomEvent');
+    e.initCustomEvent(eventName, true, true, eventData);
+    element.dispatchEvent(e);
+  }
+
   setInterval(postCurrentHeight, 350);
   postCurrentHeight();
-})(jQuery);
+})();

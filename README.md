@@ -18,14 +18,8 @@ Usage
 #### 1. Include iframe
     
     <iframe scrolling="no" src="..."></iframe>
-
-#### 2. Include jQuery
-    
-You can skip this step if jQuery is already included in your page. 
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    
-#### 3. Include Script
+   
+#### 2. Include Script
     
     <script src="dist/set-iframe-height-parent-min.js" async></script>
 
@@ -34,12 +28,6 @@ You can skip this step if jQuery is already included in your page.
 #### 1. Include Script
     
     <script src="dist/set-iframe-height-child-min.js" async></script>
-
-#### 2. Include jQuery
-    
-You can skip this step if jQuery is already included in the iframe page. 
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     
 ### Advanced Options
 
@@ -55,8 +43,8 @@ This allows the user to reload, bookmark or share deep-linked iframe content wit
 
 If you need to take action whenever the deep link changes, e.g. to dynamically update social share buttons, you can listen to the window.setIframeHeight:deepLink:changed event:
 
-    jQuery(window).on('setIframeHeight:deepLink:changed', function(e, data) {
-        console.log(data);
+    window.addEventListener('setIframeHeight:deepLink:changed', function(e) {
+        console.log(e.detail);
         // Object {childUrl: "http://..", parentUrl: "http://..."}
     });
 
@@ -72,15 +60,12 @@ setIframeHeight:shrinked: is triggered whenever the iframe got shrinked
 
 Example usage:
 
-    jQuery(window)
-        .on('setIframeHeight:shrinked', function (e, data) {
-            console.log('iframe shrinked', data);
-            window.scroll(0,0);
-        })
-        .on('setIframeHeight:enlarged', function (e, data) {
-            console.log('iframe enlarged', data);
-        })
-    ;
+    window.addEventListener('setIframeHeight:shrinked', function (e) {
+        console.log('iframe shrinked', e.detail);
+    });
+    window.addEventListener('setIframeHeight:enlarged', function (e) {
+        console.log('iframe enlarged', e.detail);
+    });
 
 
 #### Support for amp-iframe (Accelerated Mobile Pages Project)

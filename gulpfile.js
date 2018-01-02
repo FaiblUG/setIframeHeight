@@ -1,10 +1,14 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
+const babel = require('gulp-babel');
 
 gulp.task('scripts', function() {
   var uglify = require('gulp-uglify');
   var rename = require('gulp-rename');
   return gulp
     .src('src/**/*.js')
+    .pipe(babel({
+      presets: ['env']
+    }))
     .pipe(gulp.dest('dist'))
     .pipe(uglify())
     .pipe(rename(function (path) {

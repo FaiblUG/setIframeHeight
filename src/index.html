@@ -17,18 +17,15 @@
 <h3>Works with multiple Iframes on one page, too</h3>
 <iframe scrolling="no" width="100%" src="additional-iframe-1.html"></iframe>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="./set-iframe-height-parent.js" async></script>
 <script>
 if (window.console && typeof console.log === 'function') {
-    $(window)
-        .on('setIframeHeight:shrinked', function (e, data) {
-            console.log('iframe shrinked', data);
-        })
-        .on('setIframeHeight:enlarged', function (e, data) {
-            console.log('iframe enlarged', data);
-        })
-    ;
+    window.addEventListener('setIframeHeight:shrinked', function (e) {
+        console.log('iframe shrinked', e.detail);
+    });
+    window.addEventListener('setIframeHeight:enlarged', function (e) {
+        console.log('iframe enlarged', e.detail);
+    });
 }
 </script>
 </body>
