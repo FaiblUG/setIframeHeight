@@ -1,1 +1,1 @@
-jQuery("body").on("click","p",function(e){$(e.currentTarget).toggleClass("shrinked")});
+"use strict";document.getElementsByTagName("body")[0].addEventListener("click",function(e){e.target&&"P"==e.target.nodeName&&e.target.classList.toggle("shrinked")});
