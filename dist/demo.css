@@ -1,0 +1,11 @@
+p {
+    margin: 0;
+    padding: 10px;
+    overflow: hidden;
+    transition: max-height 200ms;
+    max-height: 99em;
+}
+
+p.shrinked {
+    max-height: 1em;
+}

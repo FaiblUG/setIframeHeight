@@ -1,7 +1,13 @@
+'use strict';
+
 (function () {
   'use strict';
 
-  /************** EVENT BINDINGS **************/
+  /************** POLY FILLS ********************/
+  polyFillNodeListForEach();
+
+
+  /************** EVENT BINDINGS ****************/
 
   window.addEventListener('setIframeHeight', onSetIframeHeight);
   window.addEventListener('message', onMessage);
@@ -10,7 +16,7 @@
   /************** PUBLIC INTERFACE **************/
 
   var that = {
-    setHeight: function(data) {
+    setHeight: function setHeight(data) {
       data.height = parseInt(data.height, 10);
       triggerCustomEvent(window, 'setIframeHeight', data);
     }
@@ -18,18 +24,19 @@
 
   var lastHeights = {};
 
+
   /************** PRIVATE VARS AND FUNCTIONS **************/
 
   function findIframeBySrc(src) {
-    let bestMatchingIframe = null;
+    var bestMatchingIframe = null;
 
-    document.querySelectorAll('iframe').forEach((iframe) => {
-      let iframeSrc = iframe.dataset.iframeAutoHeightCurrentSrc || iframe.src;
+    document.querySelectorAll('iframe').forEach(function (iframe) {
+      var iframeSrc = iframe.dataset.iframeAutoHeightCurrentSrc || iframe.src;
       if (iframeSrc) {
         iframeSrc = absolutizeUrl(iframeSrc);
         if (iframeSrc === src) {
           bestMatchingIframe = iframe;
-  
+
           return false; //break loop
         }
       }
@@ -41,7 +48,7 @@
   function findIframeById(iframeId) {
     var bestMatchingIframe = null;
 
-    document.querySelectorAll('iframe').forEach((iframe) => {
+    document.querySelectorAll('iframe').forEach(function (iframe) {
       if (!bestMatchingIframe && iframe.dataset.setIframeHeightId === iframeId) {
         bestMatchingIframe = iframe;
       }
@@ -68,7 +75,7 @@
   }
 
   function onSetIframeHeight(e) {
-    let data = e.detail;
+    var data = e.detail;
     var iframe;
 
     iframe = findIframeById(data.iframeId);
@@ -90,16 +97,13 @@
 
       iframe.dataset.iframeAutoHeightCurrentSrc = data.iframeSrc;
 
-
       var lastHeight = lastHeights[data.iframeId];
       var height = data.height;
       if (lastHeight === undefined) {
         triggerCustomEvent(window, 'setIframeHeight:determined', data);
-      }
-      else if (lastHeight > height) {
+      } else if (lastHeight > height) {
         triggerCustomEvent(window, 'setIframeHeight:shrinked', data);
-      }
-      else if (lastHeight < height) {
+      } else if (lastHeight < height) {
         triggerCustomEvent(window, 'setIframeHeight:enlarged', data);
       }
 
@@ -111,12 +115,12 @@
           window.history.replaceState({}, '', parentUrl);
           triggerCustomEvent(window, 'setIframeHeight:deepLink:changed', {
             childUrl: data.iframeSrc,
-            parentUrl: parentUrl,
+            parentUrl: parentUrl
           });
         }
 
         if (iframe.contentWindow && iframe.contentWindow.postMessage) {
-          iframe.contentWindow.postMessage('setIframeHeight:deepLink:changed::{ "parentUrl": "'+parentUrl+'", "childUrl": "'+data.iframeSrc+'"}', '*');
+          iframe.contentWindow.postMessage('setIframeHeight:deepLink:changed::{ "parentUrl": "' + parentUrl + '", "childUrl": "' + data.iframeSrc + '"}', '*');
         }
       }
     }
@@ -134,9 +138,22 @@
   }
 
   function triggerCustomEvent(element, eventName, eventData) {
-    const e = document.createEvent('CustomEvent');
+    var e = document.createEvent('CustomEvent');
     e.initCustomEvent(eventName, true, true, eventData);
     element.dispatchEvent(e);
+  }
+
+
+  function polyFillNodeListForEach() {
+    // Polyfill for Browsers not supporting NodeList.forEach
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = function (callback, thisArg) {
+        thisArg = thisArg || window;
+        for (var i = 0; i < this.length; i++) {
+          callback.call(thisArg, this[i], i, this);
+        }
+      };
+    }
   }
 
   return that;

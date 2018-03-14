@@ -1,0 +1,60 @@
+<!doctype html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <title>AMP HTML ⚡ iframe Demo</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-custom>
+    body {
+        font-family: Arial;
+        color: #333;
+        padding: 20px 10px 40px 10px;
+        line-height: 1.2;
+    }
+    h1, h2, h3 {
+        margin: 0;
+    }
+    a {
+        color: #4078c0;
+        text-decoration: none;
+    }
+    code {
+        padding: 0.2em 0.2em 0.3em 0.2em;
+        background-color: rgba(0,0,0,0.04);
+        border-radius: 3px;
+    }
+    #iframe {
+        border: 4px solid chartreuse;
+    }
+    </style>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+    <header>
+        <h1>AMP HTML ⚡</h1>
+        <h2>iframe resize demo</h2>
+    </header>
+    <main role="main">
+        <article>
+            <p>
+                <amp-img id="img1" src="https://placeholdit.imgix.net/~text?txtsize=28&txt=300%C3%97600&w=300&h=600" width=300 height=600></amp-img>
+            </p>
+            <h3>amp-iframe</h3>
+            <p>
+            <code>amp-iframe</code> elements must be either 600px away from the top or not within the first 75% of the viewport when scrolled to the top – whichever is smaller.
+                They must only request resources via HTTPS or from a data-URI or via the srcdoc attribute.<br><br>
+                See the <a target="_blank" href="https://github.com/ampproject/amphtml/blob/master/extensions/amp-iframe/amp-iframe.md#-amp-iframe">docs on github</a>.
+            </p>
+            <amp-iframe id="iframe" width=300 height=300
+                sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                layout="responsive"
+                frameborder="0"
+                resizable
+                src="https://demo.jonasfischer.net/Faibl/setIframeHeight/iframe-1.html">
+                <div overflow>Overflow!</div>
+            </amp-iframe>
+        </article>
+    </main>
+</body>
+</html>
