@@ -3,7 +3,11 @@
 (function () {
   'use strict';
 
-  /************** EVENT BINDINGS **************/
+  /************** POLY FILLS ********************/
+
+  polyFillNodeListForEach();
+
+  /************** EVENT BINDINGS ****************/
 
   window.addEventListener('setIframeHeight', onSetIframeHeight);
   window.addEventListener('message', onMessage);
@@ -135,6 +139,18 @@
     var e = document.createEvent('CustomEvent');
     e.initCustomEvent(eventName, true, true, eventData);
     element.dispatchEvent(e);
+  }
+
+  function polyFillNodeListForEach() {
+    // Polyfill for Browsers not supporting NodeList.forEach
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = function (callback, thisArg) {
+        thisArg = thisArg || window;
+        for (var i = 0; i < this.length; i++) {
+          callback.call(thisArg, this[i], i, this);
+        }
+      };
+    }
   }
 
   return that;
