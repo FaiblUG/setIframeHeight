@@ -88,6 +88,13 @@
       iframe = findIframeBySrc(data.iframeReferrer);
     }
 
+    if (!iframe) {
+      var enhancedIframes = document.querySelectorAll('iframe[data-set-iframe-height-id]');
+      if (enhancedIframes.length ===1) {
+        iframe = enhancedIframes[0];
+      }
+    }
+
     if (iframe) {
       iframe.dataset.setIframeHeightId = data.iframeId;
 

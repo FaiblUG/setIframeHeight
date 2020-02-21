@@ -1,6 +1,6 @@
 {
   "name": "set-iframe-height",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "cross-domain responsive iframes: automatically set iframe height to fit iframe content",
   "keywords": [
     "iframe",
@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "gulp watch",
-    "publish": "gulp publish"
+    "deploy": "gulp publish"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
